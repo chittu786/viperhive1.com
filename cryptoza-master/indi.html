@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crypto Wallet Sign In</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      font-family: 'Helvetica Neue', sans-serif;
+      font-weight: 300;
+    }
+.register-form {
+  width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #222;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.75);
+}
+
+h1 {
+color: #ff005e;
+font-size: 40px;
+text-align: center;
+margin-bottom: 40px;
+letter-spacing: 1px;
+}
+
+label {
+display: block;
+margin-bottom: 15px;
+color: white;
+font-weight: bold;
+letter-spacing: 0.5px;
+}
+
+input, select {
+display: block;
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 5px;
+margin-bottom: 25px;
+background-color: #444;
+color: white;
+font-size: 16px;
+letter-spacing: 0.5px;
+}
+
+input[type="submit"], button {
+display: block;
+width: 100%;
+padding: 12px;
+border: none;
+border-radius: 5px;
+background-color: #ff005e;
+color: white;
+font-size: 18px;
+cursor: pointer;
+letter-spacing: 0.5px;
+transition: background-color 0.3s ease-in-out;
+}
+
+input[type="submit"]:hover, button:hover {
+background-color: #c6004a;
+}
+
+input:invalid, select:invalid {
+border: 2px solid #ff005e;
+}
+
+input:valid, select:valid {
+border: 2px solid #8bc34a;
+}
+</style>
+</head>
+<body>
+ 
+<form class="register-form"  onsubmit="generateSecretPhrase(); return false;">
+
+  <h1>JOIN THE VIPERHIVE</h1>
+  <label for="name">Full Name:</label>
+  <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+  <label for="email">Email Address:</label>
+  <input type="email" id="email" name="email" placeholder="Enter your email address" pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" required>
+  <label for="id-type">ID Type:</label>
+  <select id="id-type" name="id-type" required>
+    <option value="">--Select ID Type--</option>
+    <option value="adhar">Adhar Card</option>
+    <option value="pan">PAN Card</option>
+    <option value="driving-license">Driving License</option>
+  </select>
+  <label for="id-number">ID Number:</label>
+  <input type="text" id="id-number" name="id-number" placeholder="Enter your 12-digit ID number" pattern="\d{12}" required>
+  <label for="password">Create a Strong Password:</label>
+  <input type="password" id="password" name="password" placeholder="At least 8 characters with a mix of letters, numbers, and symbols" required>
+  <label for="confirm-password">Confirm Password:</label>
+  <input type="password" id="confirm-password" name="confirm-password" required>
+  <button type="submit" >Continue to Registration</button>
+
+</form>
+
+    <script>
+     function generateSecretPhrase() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const idType = document.getElementById("id-type").value;
+  const idNumber = document.getElementById("id-number").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+  const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return false;
+  } else if (!passwordPattern.test(password)) {
+    alert("Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one numeric digit, and one special character.");
+    return false;
+  } else if (!email.endsWith('@gmail.com')) {
+    alert("Email must end with '@gmail.com'");
+    return false;
+  } else {
+    const randomNumber = Math.floor(Math.random() * 1000000);
+    const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const secretPhrase = `${name}-${idType}-${idNumber}-${randomNumber}-${randomString}`;
+    console.log(secretPhrase);
+    localStorage.setItem("secretPhrase", secretPhrase);
+    window.location.href = "registration.html";
+  }
+}
+
+
+    </script>
+  </body>
+</html>

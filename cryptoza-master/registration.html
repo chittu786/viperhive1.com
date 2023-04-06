@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Registration Form</title>
+    <style>
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+  h1 {
+    color: #ff8800;
+    text-align: center;
+    font-size: 36px;
+    margin-top: 50px;
+  }
+
+ h2 {
+    text-align: center;
+    font-size: 28px;
+    }
+
+  p {
+    text-align: center;
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  pre {
+    text-align: center;
+    font-size: 28px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  form {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
+  label {
+    display: block;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #ff8800;
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #cc6600;
+  }
+
+  @media screen and (max-width: 500px) {
+    form {
+      padding: 10px;
+    }
+  }
+</style>
+
+</head>
+  <body>
+    <h1>WARNING: DO NOT SHARE YOUR SECRET PHRASE</h1>
+    <h2> COPY AND SAVE IT FOR SIGN IN</h2>
+    <p>Your secret phrase is:</p>
+    <pre id="secret-phrase"></pre>
+    <button type="button" onclick="copySecretPhrase()">Copy</button>
+
+    <form name="registration" method="POST" action="dash1.html" >
+      <label for="secret-phrase-input">Enter Your Secret Phrase:</label>
+      <input type="text" id="secret-phrase-input" name="secret-phrase" required><br><br>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <script>
+      const secretPhrase = localStorage.getItem("secretPhrase");
+      document.getElementById("secret-phrase").textContent = secretPhrase;
+
+      function register() {
+        const enteredSecretPhrase = document.getElementById("secret-phrase-input").value;
+        if (enteredSecretPhrase === secretPhrase) {
+          alert("Registration Successful!");
+        } else {
+          alert("Invalid Secret Phrase. Please try again.");
+        }
+      }
+
+      function copySecretPhrase() {
+        const secretPhraseElement = document.getElementById("secret-phrase");
+        const range = document.createRange();
+        range.selectNode(secretPhraseElement);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        alert("Secret phrase copied to clipboard!");
+      }
+    </script>
+  </body>
+</html>
